@@ -2,6 +2,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <title>$COD4</title>
     <style>
         @font-face { font-family: 'Bank'; src: url('Bank.ttf') format('truetype'); }
@@ -87,26 +92,39 @@
             from { background-position: 0 0; }
             to { background-position: 0 4px; }
         }
+        .audio-icon {
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 1vh;
+    left: 1vw;
+    cursor: pointer;
+    z-index: 20;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.2s;
+}
+
+.audio-icon:hover {
+    transform: scale(1.1);
+}
+
+
+
+.audio-icon.off {
+    background-image: url('mute.png'); /* Replace with your "off" icon URL */
+ 
+
+}
+
+/* On state */
+.audio-icon.on {
+    background-image: url('volume.png'); /* Replace with your "on" icon URL */
+   
+}
+
         /* Music Toggle Button */
-        #music-toggle {
-            font-family: 'Bank', Impact, sans-serif;
-            position: fixed;
-            top: 1vh;
-            left: 1vw;
-            z-index: 20;
-            padding: 6px 12px;
-            background-color: rgba(50, 50, 50, 0.8);
-            border: 1px solid #00ff00;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 16px;
-            color: #ffffff;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        #music-toggle:hover {
-            background-color: rgba(50, 50, 50, 1);
-            border-color: #00e600;
-        }
+
         /* Social Icons Container */
         .social-icons {
             position: fixed;
@@ -215,26 +233,7 @@
                 }
             }
 
-            .video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.video-background video,
-.video-background img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+            
 
 
 
@@ -244,13 +243,6 @@
 </head>
 <body>
 
-    <div class="video-background">
-        <video id="background-video" autoplay loop muted playsinline>
-            <source src="https://files.catbox.moe/kj1qgc.webm" type="video/webm">
-            Your browser does not support the video tag.
-        </video>
-        <img id="fallback-image" src="https://files.catbox.moe/r8gwgx.png" alt="Fallback Background" style="display: none;">
-    </div>
     
     <div class="title-logo">
         <h1>$COD4</h1> 
@@ -285,7 +277,8 @@
     setInterval(updateSlideshow, 3000); // Change every 3 seconds
 </script>
 
-    <button id="music-toggle">Play Music</button>
+<div id="music-toggle" class="audio-icon off" title="Toggle Music"></div>
+
     
     <div class="social-icons">
         <a href="https://telegram.org" target="_blank" aria-label="Telegram">
@@ -421,36 +414,30 @@
             camera.updateProjectionMatrix();
         });
 
-        // Music toggle functionality
-        const audio = new Audio('https://files.catbox.moe/593klv.mp3');
-        audio.loop = true;
 
-        const musicToggle = document.getElementById('music-toggle');
-        musicToggle.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play().catch((error) => {
-                    console.error('Audio playback failed:', error);
-                });
-                musicToggle.textContent = 'Pause Music';
-            } else {
-                audio.pause();
-                musicToggle.textContent = 'Play Music';
-            }
-        });
+    const audio = new Audio('https://files.catbox.moe/593klv.mp3');
+    audio.loop = true;
+
+    const musicToggle = document.getElementById('music-toggle');
+
+    // Toggle music on click
+    musicToggle.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().catch((error) => {
+                console.error('Audio playback failed:', error);
+            });
+            musicToggle.classList.remove('off');
+            musicToggle.classList.add('on');
+        } else {
+            audio.pause();
+            musicToggle.classList.remove('on');
+            musicToggle.classList.add('off');
+        }
+    });
+
     </script>
 
-<script>
-    const video = document.getElementById('background-video');
-    const fallbackImage = document.getElementById('fallback-image');
 
-    // Attempt to play the video
-    video.play().catch((error) => {
-        console.error('Video autoplay failed:', error);
-        // Show fallback image if autoplay fails
-        video.style.display = 'none';
-        fallbackImage.style.display = 'block';
-    });
-</script>
 
 </body>
 </html>
