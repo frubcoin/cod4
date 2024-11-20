@@ -4,8 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
-
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
 
     <title>$COD4</title>
     <style>
@@ -250,9 +253,9 @@
     </div>
 
 
-    <img src="https://files.catbox.moe/coodgl.png" class="sticker"></img>
+    <img src="https://files.catbox.moe/coodgl.png" class="sticker draggable"></img>
 
-        <div class="green-window">
+        <div class="green-window draggable">
             <div class="slideshow">
                 <img id="slideshow-img" src="" alt="Slideshow image">
             </div>
@@ -436,6 +439,15 @@
     });
 
     </script>
+<script>
+    // Initialize Draggable on the green window
+    Draggable.create(".draggable", {
+        type: "x,y", // Allow dragging on both x and y axes
+        edgeResistance: 0.65, // Adds resistance when dragging near edges
+        bounds: window, // Constrain dragging within the window bounds
+        inertia: true // Allows the window to "slide" after release
+    });
+</script>
 
 
 
