@@ -20,7 +20,7 @@
             overflow: hidden;
             background-color: #333;
             position: relative;
-            background-image: url('https://files.catbox.moe/vveui6.gif'); /* Replace with your GIF URL */
+            background-image: url('vveui6.gif'); /* Replace with your GIF URL */
     background-size: cover; /* Ensures the GIF covers the entire viewport */
     background-repeat: no-repeat; /* Prevents tiling */
     background-position: center; /* Centers the GIF */
@@ -185,8 +185,6 @@
         0px 1px 1px rgba(0, 0, 0, 0.8); /* Dark shadow for depth */
         }
 
-
-
         .sticker {
     position: fixed; /* Ensures the sticker stays in the same position on the screen */
     right: 1%; /* Adjust distance from the right edge */
@@ -197,55 +195,6 @@
     height: auto; /* Maintain aspect ratio */
     z-index: 20; /* Ensure it's above other elements, if needed */
 }
-
-
-
-        .green-window {
-    position: fixed;
-    top: 50%;
-    left: 20vw; /* Adjust position as needed */
-    width: 15rem; /* Make it square */
-    height: 15rem; /* Equal to width for a square */
-    transform: translate(-50%, -50%); /* Center the box relative to its position */
-    border: 4px solid #00ff00; /* Green border */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    box-shadow: 0 0 10px #00ff00; /* Glow effect */
-    z-index: 10; /* Place it above the background but below the title-logo */
-}
-@media only screen and (max-width: 768px) {
-    .green-window {
-        display: none;
-    }
-}
-
-.slideshow {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-                position: relative;
-            }
-        
-            .slideshow img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-                animation: fade .2s ease-in-out;
-            }
-        
-            @keyframes fade {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
-
-            
-
 
 
     </style>
@@ -261,45 +210,22 @@
     </div>
 
 
-    <img src="https://files.catbox.moe/coodgl.png" class="sticker draggable"></img>
+    <img src="coodgl.png" class="sticker draggable"></img>
 
-        <div class="green-window draggable">
-            <div class="slideshow">
-                <img id="slideshow-img" src="" alt="Slideshow image">
-            </div>
-        </div>
- 
-<script>
-    const slideshowFolder = 'slideshow'; // Folder containing images and GIFs
-    const images = [
-        'cod4-PFP-png.png',
-    ];
 
-    let currentIndex = 0;
-    const slideshowImg = document.getElementById('slideshow-img');
-
-    function updateSlideshow() {
-        slideshowImg.src = `${slideshowFolder}/${images[currentIndex]}`;
-        currentIndex = (currentIndex + 1) % images.length; // Loop back to the start
-    }
-
-    // Start the slideshow
-    updateSlideshow(); // Show the first image
-    setInterval(updateSlideshow, 3000); // Change every 3 seconds
-</script>
 
 <div id="music-toggle" class="audio-icon off" title="Toggle Music"></div>
 
     
     <div class="social-icons">
-        <a href="https://telegram.org" target="_blank" aria-label="Telegram">
-            <img alt="Telegram logo, white paper airplane icon" src="https://files.catbox.moe/cd59ht.png" width="32" height="32">
+        <a href="https://t.me/TenthPrestigeLobby" target="_blank" aria-label="Telegram">
+            <img alt="Telegram logo, white paper airplane icon" src="cd59ht.png" width="32" height="32">
         </a>
-        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
-            <img alt="Dexscreener logo, PNG image" src="https://files.catbox.moe/20p8b6.png" width="32" height="32">
+        <a href="https://x.com/COD4onSOL" target="_blank" aria-label="Twitter">
+            <img alt="Twitter logo, PNG image" src="20p8b6.png" width="32" height="32">
         </a>
         <a href="https://dexscreener.com" target="_blank" aria-label="Dexscreener">
-            <img alt="Dexscreener logo, PNG image" src="https://files.catbox.moe/ehltah.png" width="32" height="32">
+            <img alt="Dexscreener logo, PNG image" src="ehltah.png" width="32" height="32">
         </a>
     </div>
     <div class="crt-overlay"></div>
@@ -358,7 +284,7 @@
             modelGroup.add(model);
             
             // Scale the model
-            model.scale.set(2.8125, 2.8125, 2.8125);
+            model.scale.set(3, 3, 3);
             
             // Center the model using bounding box
             const box = new THREE.Box3().setFromObject(model);
@@ -384,7 +310,7 @@
             // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
-                modelGroup.rotation.y += 0.01;
+                modelGroup.rotation.y += 0.02;
                 renderer.render(scene, camera);
             }
             animate();
@@ -426,7 +352,7 @@
         });
 
 
-    const audio = new Audio('https://files.catbox.moe/593klv.mp3');
+    const audio = new Audio('593klv.mp3');
     audio.loop = true;
 
     const musicToggle = document.getElementById('music-toggle');
