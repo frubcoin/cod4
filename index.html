@@ -134,21 +134,57 @@
             background: transparent;
             position: fixed;
             z-index: 20;
-
             left: 50%;
             transform: translate(-50%);
             text-align: center;
+            top: 1vh;
         }
         .title-logo h1 {
             font-size: 3rem;
             margin-top: 1vh;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
+
         }
         .title-logo p {
             margin-top: -3vh;
             font-size: 2rem;
             font-family: 'Bank', Impact, sans-serif;
+
         }
+
+
+
+        .sticker {
+    position: fixed; /* Ensures the sticker stays in the same position on the screen */
+    right: 1%; /* Adjust distance from the right edge */
+    bottom: 0%; /* Adjust distance from the bottom edge */
+    width: 10vw; /* Proportional to the viewport width for responsiveness */
+    max-width: 150px; /* Optional: Set a max size for larger screens */
+    min-width: 75px; /* Optional: Set a minimum size for smaller screens */
+    height: auto; /* Maintain aspect ratio */
+    z-index: 20; /* Ensure it's above other elements, if needed */
+}
+
+
+
+        .green-window {
+    position: fixed;
+    top: 50%;
+    left: 20vw; /* Adjust position as needed */
+    width: 15rem; /* Make it square */
+    height: 15rem; /* Equal to width for a square */
+    transform: translate(-50%, -50%); /* Center the box relative to its position */
+    border: 4px solid #00ff00; /* Green border */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    box-shadow: 0 0 10px #00ff00; /* Glow effect */
+    z-index: 10; /* Place it above the background but below the title-logo */
+}
+@media only screen and (max-width: 768px) {
+    .green-window {
+        display: none;
+    }
+}
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/js/loaders/GLTFLoader.js"></script>
@@ -158,6 +194,63 @@
         <h1>$COD4</h1> 
         <p>used copy of COD4</p> 
     </div>
+
+
+    <img src="https://files.catbox.moe/coodgl.png" class="sticker"></img>
+
+        <div class="green-window">
+            <div class="slideshow">
+                <img id="slideshow-img" src="" alt="Slideshow image">
+            </div>
+        </div>
+        <style>
+
+
+            .slideshow {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+            }
+        
+            .slideshow img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                animation: fade .2s ease-in-out;
+            }
+        
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+        </style>
+<script>
+    const slideshowFolder = 'slideshow'; // Folder containing images and GIFs
+    const images = [
+        'cod4-PFP-png.png',
+    ];
+
+    let currentIndex = 0;
+    const slideshowImg = document.getElementById('slideshow-img');
+
+    function updateSlideshow() {
+        slideshowImg.src = `${slideshowFolder}/${images[currentIndex]}`;
+        currentIndex = (currentIndex + 1) % images.length; // Loop back to the start
+    }
+
+    // Start the slideshow
+    updateSlideshow(); // Show the first image
+    setInterval(updateSlideshow, 3000); // Change every 3 seconds
+</script>
+
     <button id="music-toggle">Play Music</button>
     
     <div class="social-icons">
