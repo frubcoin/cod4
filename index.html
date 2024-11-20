@@ -11,9 +11,74 @@
             height: 100%;
             overflow: hidden;
             background-color: #333;
+            position: relative;
         }
         canvas {
             display: block;
+            width: 100%;
+            height: 100%;
+        }
+        /* CRT Grainy Overlay */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(1px);
+            z-index: 10;
+            animation: flicker 3s infinite;
+        }
+        .crt-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: repeating-radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.2;
+            animation: move 10s linear infinite;
+        }
+        /* CRT Scanlines */
+        .crt-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.02),
+                rgba(0, 0, 0, 0.02) 2px,
+                rgba(255, 255, 255, 0.02) 2px,
+                rgba(255, 255, 255, 0.02) 4px
+            );
+            pointer-events: none;
+            z-index: 11;
+            animation: scanlines 1s linear infinite;
+        }
+        /* CRT Flicker Effect */
+        @keyframes flicker {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.25; }
+        }
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-50%, -50%); }
+        }
+        @keyframes scanlines {
+            from { background-position: 0 0; }
+            to { background-position: 0 4px; }
         }
     </style>
     <!-- Include Three.js library -->
@@ -21,17 +86,19 @@
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
+    <div class="crt-overlay"></div>
     <script>
         // Set up scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio || 1);
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         // Make the video element
         const video = document.createElement('video');
-        video.src = 'https://files.catbox.moe/gutnqi.webm';
+        video.src = 'https://files.catbox.moe/kj1qgc.webm';
         video.crossOrigin = 'anonymous';
         video.autoplay = true;
         video.loop = true;
@@ -57,10 +124,10 @@
 
         // Load GLB model
         const loader = new THREE.GLTFLoader();
-        loader.load('https://files.catbox.moe/u69bbe.glb', (gltf) => {
+        loader.load('https://files.catbox.moe/zeqhll.glb', (gltf) => {
             const model = gltf.scene;
             model.position.set(0, 0, 0);
-            model.scale.set(14, 14, 14); // Increased to 1400% for better visibility
+            model.scale.set(3, 3, 3); // Scaled up by 300%
             scene.add(model);
 
             // Center the model
