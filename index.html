@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>3D Model Display with Background Video</title>
     <style>
         body, html {
             margin: 0;
@@ -80,12 +80,32 @@
             from { background-position: 0 0; }
             to { background-position: 0 4px; }
         }
+        /* Music Toggle Button */
+        #music-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            padding: 10px 20px;
+            background-color: rgba(50, 50, 50, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #ffffff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        #music-toggle:hover {
+            background-color: rgba(50, 50, 50, 1);
+            border-color: #00e600;
+        }
     </style>
     <!-- Include Three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
+    <button id="music-toggle">Play Music</button>
     <div class="crt-overlay"></div>
     <script>
         // Set up scene, camera, and renderer
@@ -103,7 +123,9 @@
         video.autoplay = true;
         video.loop = true;
         video.muted = true;
-        video.play(); // Force play
+        video.play().catch((error) => {
+            console.error('Video playback failed:', error);
+        }); // Force play with error handling
 
         // Create a texture from the video
         const videoTexture = new THREE.VideoTexture(video);
@@ -124,10 +146,10 @@
 
         // Load GLB model
         const loader = new THREE.GLTFLoader();
-        loader.load('https://files.catbox.moe/zeqhll.glb', (gltf) => {
+        loader.load('https://files.catbox.moe/vmuyy1.glb', (gltf) => {
             const model = gltf.scene;
             model.position.set(0, 0, 0);
-            model.scale.set(3, 3, 3); // Scaled up by 300%
+            model.scale.set(3.75, 3.75, 3.75); // Scaled up by 200%
             scene.add(model);
 
             // Center the model
@@ -158,6 +180,24 @@
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
+        });
+
+        // Music toggle functionality
+        const audio = new Audio('https://files.catbox.moe/593klv.mp3');
+        audio.loop = true;
+
+        const musicToggle = document.getElementById('music-toggle');
+
+        musicToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch((error) => {
+                    console.error('Audio playback failed:', error);
+                });
+                musicToggle.textContent = 'Pause Music';
+            } else {
+                audio.pause();
+                musicToggle.textContent = 'Play Music';
+            }
         });
     </script>
 </body>
