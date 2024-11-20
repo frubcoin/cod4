@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,10 +85,10 @@
             top: 20px;
             left: 20px;
             z-index: 20;
-            padding: 10px 20px;
+            padding: 6px 20px;
             background-color: rgba(50, 50, 50, 0.8);
-            border: 2px solid #00ff00;
-            border-radius: 5px;
+            border: 1px solid #00ff00;
+            border-radius: 2px;
             cursor: pointer;
             font-size: 16px;
             color: #ffffff;
@@ -99,6 +98,31 @@
             background-color: rgba(50, 50, 50, 1);
             border-color: #00e600;
         }
+        /* Social Icons Container */
+        .social-icons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 20;
+            display: flex;
+            gap: 15px;
+        }
+        .social-icons a {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s;
+        }
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+        .social-icons img {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s;
+        }
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
     </style>
     <!-- Include Three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -106,6 +130,17 @@
 </head>
 <body>
     <button id="music-toggle">Play Music</button>
+    <div class="social-icons">
+        <a href="https://telegram.org" target="_blank" aria-label="Telegram">
+            <img alt="Telegram logo, white paper airplane icon" src="https://files.catbox.moe/cd59ht.png" width="32" height="32">
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+            <img alt="Dexscreener logo, PNG image" src="https://files.catbox.moe/20p8b6.png" width="32" height="32">
+        </a>
+        <a href="https://dexscreener.com" target="_blank" aria-label="Dexscreener">
+            <img alt="Dexscreener logo, PNG image" src="https://files.catbox.moe/ehltah.png" width="32" height="32">
+        </a>
+    </div>
     <div class="crt-overlay"></div>
     <script>
         // Set up scene, camera, and renderer
@@ -149,7 +184,7 @@
         loader.load('https://files.catbox.moe/vmuyy1.glb', (gltf) => {
             const model = gltf.scene;
             model.position.set(0, 0, 0);
-            model.scale.set(3.75, 3.75, 3.75); // Scaled up by 200%
+            model.scale.set(5.625, 5.625, 5.625); // Scaled up by 200% then increased by 150%
             scene.add(model);
 
             // Center the model
