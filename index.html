@@ -2,8 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Display with Background Video</title>
+    <title>$COD4</title>
     <style>
+        @font-face { font-family: 'Bank'; src: url('Bank.otf') format('opentype'); }
         body, html {
             margin: 0;
             padding: 0;
@@ -16,21 +17,23 @@
             display: block;
             width: 100%;
             height: 100%;
+            z-index: -1;
         }
         /* CRT Grainy Overlay */
         .crt-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 300%;
+            height: 300%;
             pointer-events: none;
             background: rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(1px);
-            z-index: 10;
+            z-index: 999;
             animation: flicker 3s infinite;
         }
         .crt-overlay::before {
+            z-index: 999;
             content: '';
             position: absolute;
             top: 0;
@@ -49,6 +52,7 @@
         }
         /* CRT Scanlines */
         .crt-overlay::after {
+            z-index: 999;
             content: '';
             position: absolute;
             top: 0;
@@ -82,8 +86,8 @@
         /* Music Toggle Button */
         #music-toggle {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 1vh;
+            left: 1vw;
             z-index: 20;
             padding: 6px 20px;
             background-color: rgba(50, 50, 50, 0.8);
@@ -101,8 +105,8 @@
         /* Social Icons Container */
         .social-icons {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 1vh;
+            right: 1vw;
             z-index: 20;
             display: flex;
             gap: 15px;
@@ -123,14 +127,40 @@
         .social-icons img:hover {
             transform: scale(1.1);
         }
+        .title-logo {
+    font-family: 'Impact', sans-serif; /* Use Impact font */
+    color: #ffffff; /* Set text color to white for better contrast */
+    background: transparent; /* Ensure background is transparent */
+    position: fixed; /* Position relative to avoid overlay issues */
+    z-index: 20; /* Ensure it appears above other elements */
+    letter-spacing: 4px; /* Adjust letter spacing as needed */
+    left: 50%; /* Center horizontally */ transform: translate(-50%); /* Adjust position to be exactly in the center */
+    text-align: center;
+}
+.title-logo h1 {
+    font-size: 3rem; /* Adjust the size as needed */  
+
+
+}
+.title-logo p {
+    font-size: 2rem; /* Adjust the size as needed */  
+    font-family: 'Bank', Impact, sans-serif; /* Fallback to Impact if CustomFont is not available */
+}
+
     </style>
     <!-- Include Three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
+    <div class="title-logo">
+    <h1>$COD4</h1> 
+    <p>$COD4</p> 
+</div>
     <button id="music-toggle">Play Music</button>
+    
     <div class="social-icons">
+        
         <a href="https://telegram.org" target="_blank" aria-label="Telegram">
             <img alt="Telegram logo, white paper airplane icon" src="https://files.catbox.moe/cd59ht.png" width="32" height="32">
         </a>
@@ -140,8 +170,10 @@
         <a href="https://dexscreener.com" target="_blank" aria-label="Dexscreener">
             <img alt="Dexscreener logo, PNG image" src="https://files.catbox.moe/ehltah.png" width="32" height="32">
         </a>
+
     </div>
     <div class="crt-overlay"></div>
+
     <script>
         // Set up scene, camera, and renderer
         const scene = new THREE.Scene();
@@ -184,7 +216,7 @@
         loader.load('https://files.catbox.moe/vmuyy1.glb', (gltf) => {
             const model = gltf.scene;
             model.position.set(0, 0, 0);
-            model.scale.set(5.625, 5.625, 5.625); // Scaled up by 200% then increased by 150%
+            model.scale.set(2.8125, 2.8125, 2.8125); // Scaled up by 200% then increased by 150%
             scene.add(model);
 
             // Center the model
